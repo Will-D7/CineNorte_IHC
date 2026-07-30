@@ -14,7 +14,6 @@ export type Movie = {
 
 export const movies: Movie[] = moviesData
 
-/** Solo las películas que tienen imagen de banner, para el carrusel. */
 export const bannerMovies = movies.filter(
   (movie): movie is Movie & { banner: string } => movie.banner !== null,
 )
