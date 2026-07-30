@@ -11,9 +11,11 @@ export default function Header() {
       <nav className="page-wrap flex items-center gap-3 py-3 sm:py-4">
         <h2 className="m-0 flex-shrink-0 text-base font-semibold tracking-tight">
           <Link to="/" className="inline-flex items-center gap-2 no-underline">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--palm)] text-xs font-extrabold uppercase text-[var(--sea-ink)] shadow-[0_4px_10px_rgba(0,0,0,0.15)]">
-              CN
-            </span>
+            <img
+              src="/images/CineNorteLogo.svg"
+              alt="Cine Norte"
+              className="h-12 w-12 flex-shrink-0"
+            />
             <span className="text-lg font-extrabold tracking-tight text-[var(--sea-ink)] sm:text-xl">
               Cine Norte
             </span>
