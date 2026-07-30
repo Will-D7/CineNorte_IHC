@@ -1,23 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   ChevronLeft,
   ChevronRight,
   Search,
   SlidersHorizontal,
+  X,
 } from 'lucide-react'
 import { bannerMovies, movies } from '../types/movies'
 
 export const Route = createFileRoute('/')({ component: App })
 
-const FILTERS = ['Hoy', 'Mañana', 'Acción', 'Familiar']
+const ALL_FILTER = 'Todos'
 
 function BannerCarousel() {
   const [index, setIndex] = useState(0)
-
-  // Se reinicia cada vez que "index" cambia (automático o manual), así un
-  // clic en las flechas o los puntos siempre reinicia el conteo de 5s en
-  // vez de sumarse al ciclo automático que ya estaba corriendo.
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % bannerMovies.length)
@@ -53,7 +50,6 @@ function BannerCarousel() {
           </div>
         ))}
       </div>
-
       <button
         type="button"
         onClick={() => goTo(index - 1)}
@@ -70,7 +66,6 @@ function BannerCarousel() {
       >
         <ChevronRight size={18} />
       </button>
-
       <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
         {bannerMovies.map((movie, i) => (
           <button
@@ -91,7 +86,30 @@ function BannerCarousel() {
 }
 
 function App() {
-  const [activeFilter, setActiveFilter] = useState(FILTERS[0])
+  const filters = useMemo(() => {
+    const genreSet = new Set<string>()
+    movies.forEach((movie) => {
+      movie.genres.forEach((genre) => genreSet.add(genre))
+    })
+    return [ALL_FILTER, ...Array.from(genreSet)]
+  }, [])
+
+  const [activeFilter, setActiveFilter] = useState(ALL_FILTER)
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const filteredMovies = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase()
+
+    return movies.filter((movie) => {
+      const matchesFilter =
+        activeFilter === ALL_FILTER || movie.genres.includes(activeFilter)
+      const matchesSearch =
+        normalizedSearch === '' ||
+        movie.title.toLowerCase().includes(normalizedSearch)
+
+      return matchesFilter && matchesSearch
+    })
+  }, [activeFilter, searchTerm])
 
   return (
     <main className="page-wrap px-4 pb-8 pt-6">
@@ -104,20 +122,33 @@ function App() {
         />
         <input
           type="search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Buscar pelicula"
           className="w-full rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] py-2.5 pl-11 pr-11 text-sm text-[var(--sea-ink)] placeholder:text-[var(--sea-ink-soft)] outline-none transition focus:border-[var(--lagoon)]"
         />
-        <button
-          type="button"
-          className="absolute right-2 inline-flex items-center justify-center rounded-full p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-          aria-label="Filtros avanzados"
-        >
-          <SlidersHorizontal size={18} />
-        </button>
+        {searchTerm ? (
+          <button
+            type="button"
+            onClick={() => setSearchTerm('')}
+            className="absolute right-2 inline-flex items-center justify-center rounded-full p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
+            aria-label="Limpiar búsqueda"
+          >
+            <X size={18} />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="absolute right-2 inline-flex items-center justify-center rounded-full p-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
+            aria-label="Filtros avanzados"
+          >
+            <SlidersHorizontal size={18} />
+          </button>
+        )}
       </div>
 
       <div className="mb-6 flex flex-wrap gap-2">
-        {FILTERS.map((filter) => {
+        {filters.map((filter) => {
           const isActive = filter === activeFilter
           return (
             <button
@@ -137,34 +168,40 @@ function App() {
       </div>
 
       <section className="flex flex-col gap-4">
-        {movies.map((movie) => (
-          <Link
-            key={movie.id}
-            to="/detail/$movieId"
-            params={{ movieId: movie.id }}
-            className="flex items-center gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-3 no-underline shadow-[0_8px_22px_rgba(30,58,95,0.08)]"
-          >
-            <img
-              src={movie.poster}
-              alt={movie.title}
-              className="h-20 w-16 flex-shrink-0 rounded-xl object-cover"
-            />
-            <div className="min-w-0 flex-1">
-              <h2 className="m-0 truncate text-base font-semibold text-[var(--sea-ink)]">
-                {movie.title}
-              </h2>
-              <p className="m-0 mt-0.5 truncate text-sm text-[var(--sea-ink-soft)]">
-                {movie.genres.join(', ')}
-              </p>
-              <p className="m-0 mt-1 truncate text-xs text-[var(--sea-ink-soft)]">
-                {movie.times.join(' / ')}
-              </p>
-            </div>
-            <span className="flex-shrink-0 rounded-full bg-[var(--lagoon)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[var(--lagoon-deep)]">
-              Ver
-            </span>
-          </Link>
-        ))}
+        {filteredMovies.length === 0 ? (
+          <p className="m-0 py-8 text-center text-sm text-[var(--sea-ink-soft)]">
+            No encontramos películas con esos filtros.
+          </p>
+        ) : (
+          filteredMovies.map((movie) => (
+            <Link
+              key={movie.id}
+              to="/detail/$movieId"
+              params={{ movieId: movie.id }}
+              className="flex items-center gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-3 no-underline shadow-[0_8px_22px_rgba(30,58,95,0.08)]"
+            >
+              <img
+                src={movie.poster}
+                alt={movie.title}
+                className="h-20 w-16 flex-shrink-0 rounded-xl object-cover"
+              />
+              <div className="min-w-0 flex-1">
+                <h2 className="m-0 truncate text-base font-semibold text-[var(--sea-ink)]">
+                  {movie.title}
+                </h2>
+                <p className="m-0 mt-0.5 truncate text-sm text-[var(--sea-ink-soft)]">
+                  {movie.genres.join(', ')}
+                </p>
+                <p className="m-0 mt-1 truncate text-xs text-[var(--sea-ink-soft)]">
+                  {movie.times.join(' / ')}
+                </p>
+              </div>
+              <span className="flex-shrink-0 rounded-full bg-[var(--lagoon)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[var(--lagoon-deep)]">
+                Ver
+              </span>
+            </Link>
+          ))
+        )}
       </section>
     </main>
   )
