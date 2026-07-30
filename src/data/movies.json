@@ -1,0 +1,79 @@
+[
+  {
+    "id": "spider-man-un-nuevo-dia",
+    "title": "Spider-Man: Un Nuevo Día",
+    "genres": ["Acción"],
+    "durationMinutes": 160,
+    "rating": "Para todo público",
+    "synopsis": "Tras el Día del Juicio Final, Peter Parker intenta centrarse en la universidad y abandonar a Spider-Man. Cuando una nueva amenaza pone en peligro a sus amigos, debe romper su promesa y volver al traje.",
+    "poster": "/images/spidermanPoster.jpg",
+    "banner": "/images/spiderman_banner.jpg",
+    "times": ["17:00", "19:45", "22:15"]
+  },
+  {
+    "id": "la-odisea",
+    "title": "La Odisea",
+    "genres": ["Suspenso", "Acción", "Drama"],
+    "durationMinutes": 190,
+    "rating": "Mayores de 14",
+    "synopsis": "El legendario Odiseo enfrenta peligros épicos en su viaje de regreso a casa tras la Guerra de Troya. Se topa con criaturas míticas y dioses caprichosos, superando obstáculos increíbles antes de reunirse con su amada Penélope.",
+    "poster": "/images/laOdiseaPoster.jpg",
+    "banner": null,
+    "times": ["19:00", "21:30"]
+  },
+  {
+    "id": "minions-y-monstruos",
+    "title": "Minions & Monstruos",
+    "genres": ["Animación"],
+    "durationMinutes": 100,
+    "rating": "Para todo público",
+    "synopsis": "La historia de cómo los Minions conquistaron Hollywood, se convirtieron en estrellas de cine, lo perdieron todo, desataron monstruos en el mundo y luego se unieron para intentar salvar al planeta del caos que acababan de crear.",
+    "poster": "/images/MinionsPoster.jpg",
+    "banner": "/images/MinionsBanner.jpg",
+    "times": ["15:30", "17:45", "20:00"]
+  },
+  {
+    "id": "toy-story-5",
+    "title": "Toy Story 5",
+    "genres": ["Animación"],
+    "durationMinutes": 115,
+    "rating": "Para todo público",
+    "synopsis": "Cuando Woody, Buzz, Jessie y la pandilla se encuentran con un recién llegado de alta tecnología, sus aventuras dan un giro inesperado mientras compiten por demostrar que los juguetes más valiosos de la vida no se limitan a códigos y chips.",
+    "poster": "/images/ToyStory5Poster.jpg",
+    "banner": "/images/ToyStoryBanner.jpg",
+    "times": ["18:30", "20:00", "22:00"]
+  },
+  {
+    "id": "moana",
+    "title": "Moana",
+    "genres": ["Animación"],
+    "durationMinutes": 130,
+    "rating": "Para todo público",
+    "synopsis": "Adaptación de acción real de la película de animación de Disney de 2016 'Moana'.",
+    "poster": "/images/MoanaPoster.jpg",
+    "banner": "/images/MoanaBanner.jpg",
+    "times": ["17:15", "19:30", "21:45"]
+  },
+  {
+    "id": "el-gran-viaje",
+    "title": "El Gran Viaje",
+    "genres": ["Animación"],
+    "durationMinutes": 90,
+    "rating": "Para todo público",
+    "synopsis": "Cuatro semillas de un diente de león son las únicas supervivientes de una serie de explosiones nucleares que están destruyendo la Tierra. Lanzadas al cosmos, emprenderán una aventura inolvidable para encontrar un nuevo hogar donde puedan restablecerse como especie.",
+    "poster": "/images/ElGranViajePoster.jpg",
+    "banner": null,
+    "times": ["18:00", "20:30"]
+  },
+  {
+    "id": "dune-3",
+    "title": "Dune 3",
+    "genres": ["Suspenso", "Acción", "Drama"],
+    "durationMinutes": 120,
+    "rating": "Mayores de 14",
+    "synopsis": "La última parte de la trilogía de Dune.",
+    "poster": "/images/DunaPoster.jpg",
+    "banner": null,
+    "times": ["16:00", "19:00", "22:00"]
+  }
+]
