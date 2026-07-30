@@ -11,7 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as DetailRouteImport } from './routes/detail'
+import { Route as DetailMovieIdRouteImport } from './routes/detail.$movieId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +23,40 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DetailRoute = DetailRouteImport.update({
-  id: '/detail',
-  path: '/detail',
+const DetailMovieIdRoute = DetailMovieIdRouteImport.update({
+  id: '/detail/$movieId',
+  path: '/detail/$movieId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/detail': typeof DetailRoute
+  '/detail/$movieId': typeof DetailMovieIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/detail': typeof DetailRoute
+  '/detail/$movieId': typeof DetailMovieIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/detail': typeof DetailRoute
+  '/detail/$movieId': typeof DetailMovieIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/detail'
+  fullPaths: '/' | '/about' | '/detail/$movieId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/detail'
-  id: '__root__' | '/' | '/about' | '/detail'
+  to: '/' | '/about' | '/detail/$movieId'
+  id: '__root__' | '/' | '/about' | '/detail/$movieId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  DetailRoute: typeof DetailRoute
+  DetailMovieIdRoute: typeof DetailMovieIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,11 +75,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/detail': {
-      id: '/detail'
-      path: '/detail'
-      fullPath: '/detail'
-      preLoaderRoute: typeof DetailRouteImport
+    '/detail/$movieId': {
+      id: '/detail/$movieId'
+      path: '/detail/$movieId'
+      fullPath: '/detail/$movieId'
+      preLoaderRoute: typeof DetailMovieIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -88,7 +88,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  DetailRoute: DetailRoute,
+  DetailMovieIdRoute: DetailMovieIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   ChevronLeft,
   ChevronRight,
@@ -15,6 +15,9 @@ const FILTERS = ['Hoy', 'Mañana', 'Acción', 'Familiar']
 function BannerCarousel() {
   const [index, setIndex] = useState(0)
 
+  // Se reinicia cada vez que "index" cambia (automático o manual), así un
+  // clic en las flechas o los puntos siempre reinicia el conteo de 5s en
+  // vez de sumarse al ciclo automático que ya estaba corriendo.
   useEffect(() => {
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % bannerMovies.length)
@@ -135,9 +138,10 @@ function App() {
 
       <section className="flex flex-col gap-4">
         {movies.map((movie) => (
-          <a
+          <Link
             key={movie.id}
-            href={`/movies/${movie.id}`}
+            to="/detail/$movieId"
+            params={{ movieId: movie.id }}
             className="flex items-center gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-3 no-underline shadow-[0_8px_22px_rgba(30,58,95,0.08)]"
           >
             <img
@@ -159,7 +163,7 @@ function App() {
             <span className="flex-shrink-0 rounded-full bg-[var(--lagoon)] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[var(--lagoon-deep)]">
               Ver
             </span>
-          </a>
+          </Link>
         ))}
       </section>
     </main>
