@@ -237,13 +237,21 @@ function RouteComponent() {
           </div>
         </section>
 
-        <button
-          type="button"
-          disabled={!selectedTime}
-          className="mt-8 w-full rounded-full bg-[var(--lagoon)] py-3 text-sm font-semibold text-white transition hover:bg-[var(--lagoon-deep)] disabled:cursor-not-allowed disabled:bg-[var(--chip-line)] disabled:text-[var(--sea-ink-soft)] disabled:hover:bg-[var(--chip-line)]"
+        <Link
+          to="/seats/$movieId/$date/$time"
+          params={{
+            movieId,
+            date: selectedDay,
+            time: selectedTime ?? '',
+          }}
+          className={`mt-8 flex w-full items-center justify-center rounded-full py-3 text-sm font-semibold no-underline transition ${
+            selectedTime
+              ? 'bg-[var(--lagoon)] text-white hover:bg-[var(--lagoon-deep)]'
+              : 'pointer-events-none bg-[var(--chip-line)] text-[var(--sea-ink-soft)]'
+          }`}
         >
           Continuar
-        </button>
+        </Link>
       </div>
     </main>
   )

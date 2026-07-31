@@ -10,6 +10,7 @@ export type Movie = {
   poster: string
   banner: string | null
   times: string[]
+  price: number
 }
 
 export const movies: Movie[] = moviesData

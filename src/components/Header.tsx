@@ -29,14 +29,7 @@ export default function Header() {
               className="text-[var(--sea-ink-soft)] transition hover:text-[var(--sea-ink)]"
               activeProps={{ className: 'text-[var(--lagoon)]' }}
             >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              className="text-[var(--sea-ink-soft)] transition hover:text-[var(--sea-ink)]"
-              activeProps={{ className: 'text-[var(--lagoon)]' }}
-            >
-              About
+              Inicio
             </Link>
           </div>
 
@@ -66,17 +59,7 @@ export default function Header() {
                 className: 'rounded-lg px-3 py-2 text-[var(--lagoon)]',
               }}
             >
-              Home
-            </Link>
-            <Link
-              to="/about"
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-3 py-2 text-[var(--sea-ink-soft)] transition hover:bg-[var(--link-bg-hover)] hover:text-[var(--sea-ink)]"
-              activeProps={{
-                className: 'rounded-lg px-3 py-2 text-[var(--lagoon)]',
-              }}
-            >
-              About
+              Inicio
             </Link>
           </div>
         </div>
